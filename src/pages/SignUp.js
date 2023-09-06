@@ -72,7 +72,7 @@ const SignUp = () => {
                         <button className='bg-blue-600 w-full h-10 rounded-lg text-white hover:bg-blue-500'>SIGN UP</button>
                     </div>
                     <div className='pt-3'>
-                        <p>Already have an account? <span className=' font-semibold'><Link to="/signin">SignIn</Link></span></p>
+                        <p>Already have an account? <span className=' font-semibold'><Link to="/signin">LogIn</Link></span></p>
                     </div>
                 </form>
             </div>
