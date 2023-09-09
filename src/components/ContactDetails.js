@@ -11,8 +11,11 @@ const ContactDetails = () => {
     const auth = getAuth();
     const user = auth.currentUser;
 
-    const [fullname, setFullname] = useState(user !== null ? user.displayName : "");
-    const [url, setUrl] = useState(user !== null ? user.photoURL : "");
+    const initialFullname = user !== null ? user.displayName : "";
+    const initialUrl = user !== null ? user.photoURL : "";
+
+    const [fullname, setFullname] = useState(initialFullname);
+    const [url, setUrl] = useState(initialUrl);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -29,7 +32,7 @@ const ContactDetails = () => {
                 photoURL: url
             })
             );
-            navigate("/");
+            navigate(-1);
             console.log("Profile updated!");
         }).catch((error) => {
             console.log(error);
@@ -47,6 +50,7 @@ const ContactDetails = () => {
                 <div className='flex justify-between w-3/4 my-3 mr-5'>
                     <h1 className='font-semibold text-2xl'>Contact Details</h1>
                     <button
+                        onClick={() => navigate(-1)}
                         className='text-red-600 border-solid border-2 border-red-600 rounded-lg px-3 
                  hover:bg-red-600 hover:text-white'
                     >
