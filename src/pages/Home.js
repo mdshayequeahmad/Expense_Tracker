@@ -1,11 +1,22 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUser } from '../redux/expenseSlice';
+import { AiOutlineLogout } from "react-icons/ai";
 
 const Home = () => {
+  const userInfo = useSelector((state) => state.expenses.userInfo)
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const submitHandler = () => {
     navigate("/profile");
+  };
+
+  const logOutHandler = () => {
+    dispatch(removeUser());
+    console.log("User logout");
   };
 
   return (
@@ -22,6 +33,15 @@ const Home = () => {
           >
             Complete now
           </button>
+
+          {userInfo && (
+            <button
+              onClick={logOutHandler}
+              className='bg-red-400 px-2 text-white rounded-lg hover:bg-red-300'
+            >
+              <AiOutlineLogout />
+            </button>
+          )}
         </div>
       </div>
       <hr className=' border-black my-5' />
