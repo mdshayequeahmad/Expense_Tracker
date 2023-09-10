@@ -2,9 +2,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeUser } from '../redux/expenseSlice';
+import { getAuth, signOut } from "firebase/auth";
 import { AiOutlineLogout } from "react-icons/ai";
 
 const Home = () => {
+
+  const auth = getAuth();
   const userInfo = useSelector((state) => state.expenses.userInfo)
 
   const navigate = useNavigate();
@@ -15,8 +18,12 @@ const Home = () => {
   };
 
   const logOutHandler = () => {
-    dispatch(removeUser());
-    console.log("User logout");
+    signOut(auth).then(() => {
+      dispatch(removeUser());
+      console.log("User logout");
+    }).catch((error) => {
+      console.log(error);
+    });
   };
 
   return (
