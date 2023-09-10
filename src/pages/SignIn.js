@@ -72,7 +72,7 @@ const SignIn = () => {
               LOGIN
             </button>
             <p className="text-end mt-3 text-blue-800">
-              <Link>Forgot password</Link>
+              <Link to="/forgotpassword">Forgot password</Link>
             </p>
           </div>
           <div className="pt-1">
