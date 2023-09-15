@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeUser } from '../redux/expenseSlice';
 import { getAuth, signOut } from "firebase/auth";
 import { AiOutlineLogout } from "react-icons/ai";
+import ExpenseForm from '../components/ExpenseForm';
+import Expenses from '../components/Expenses';
 
 const Home = () => {
 
   const auth = getAuth();
-  const userInfo = useSelector((state) => state.expenses.userInfo)
+  const user = useSelector((state) => state.expenses.userInfo)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -41,7 +43,7 @@ const Home = () => {
             Complete now
           </button>
 
-          {userInfo && (
+          {user && (
             <button
               onClick={logOutHandler}
               className='bg-red-400 px-2 text-white rounded-lg hover:bg-red-300'
@@ -52,6 +54,10 @@ const Home = () => {
         </div>
       </div>
       <hr className=' border-black my-5' />
+
+      <ExpenseForm />
+
+      <Expenses />
     </div>
   )
 }
