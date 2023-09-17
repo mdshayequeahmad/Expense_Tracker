@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {addExpenses} from "../redux/expenseSlice";
+import axios from 'axios';
 
 const ExpenseForm = () => {
 
@@ -8,18 +7,16 @@ const ExpenseForm = () => {
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
 
-    const dispatch = useDispatch();
-
     const submitHandler = (e) => {
         e.preventDefault();
 
-        const expenses = {
+        axios.post('https://expense-tracker-2eef1-default-rtdb.firebaseio.com/expenses.json', {
             amount: amount,
             description: description,
             category: category
-        }
-
-        dispatch(addExpenses(expenses));
+        })
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err))
 
         setAmount("");
         setDescription("");
