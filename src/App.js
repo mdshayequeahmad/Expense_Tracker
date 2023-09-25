@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import ForgotPassword from './pages/ForgotPassword';
 import { useSelector } from 'react-redux';
+import ExpenseUpdate from './components/ExpenseUpdate';
 
 const App = () => {
 
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/update/:id" element={<ExpenseUpdate />} />
       </Routes>
     </div>
   )

@@ -1,33 +1,49 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addExpenses, deleteExpenses } from "../redux/expenseSlice";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Expenses = () => {
     const [expense, setExpense] = useState([]);
 
-    const getData = async () => {
-        const result = await fetch("https://expense-tracker-2eef1-default-rtdb.firebaseio.com/expenses.json");
-        if (!result.ok) {
-            throw new Error('Something went wrong')
-        }
-        const data = await result.json();
-
-        const newData = [];
-
-        for (const key in data) {
-            newData.push({
-                id: key,
-                amount: data[key].amount,
-                description: data[key].description,
-                category: data[key].category
-            })
-        }
-
-        setExpense(newData);
-
-    };
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        const getData = async () => {
+            const result = await fetch("https://expense-tracker-2eef1-default-rtdb.firebaseio.com/expenses.json");
+            const data = await result.json();
+
+            const newData = [];
+
+            for (const key in data) {
+                newData.push({
+                    id: key,
+                    amount: data[key].amount,
+                    description: data[key].description,
+                    category: data[key].category
+                })
+            }
+
+            setExpense(newData);
+
+            dispatch(addExpenses(expense));
+        };
+
         getData();
     }, [expense]);
+
+    const deleteHandler = async (id) => {
+        try {
+            await axios.delete(`https://expense-tracker-2eef1-default-rtdb.firebaseio.com/expenses/${id}.json`)
+                .then(() => {
+                    dispatch(deleteExpenses(id))
+                    console.log("Expense successfuly deleted");
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    };
 
     return (
         <div className="mt-10">
@@ -40,7 +56,22 @@ const Expenses = () => {
                         >
                             <span>Rs: {item.amount}</span>
                             <span className="">{item.description}</span>
-                            <span>{item.category}</span>
+                            <span>
+                                {item.category}
+                                <Link to={`update/${item.id}`}>
+                                    <button
+                                        className="bg-amber-500 px-3 py-1 text-white rounded-lg ml-5 hover:bg-amber-300"
+                                    >
+                                        Update
+                                    </button>
+                                </Link>
+                                <button
+                                    onClick={() => deleteHandler(item.id)}
+                                    className="bg-red-500 px-3 py-1 text-white rounded-lg ml-5 hover:bg-red-400"
+                                >
+                                    Delete
+                                </button>
+                            </span>
                         </p>
                     </div>
                     <div className="h-1" />

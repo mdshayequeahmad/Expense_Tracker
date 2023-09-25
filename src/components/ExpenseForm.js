@@ -5,7 +5,7 @@ const ExpenseForm = () => {
 
     const [amount, setAmount] = useState("");
     const [description, setDescription] = useState("");
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState("Food");
 
     const submitHandler = (e) => {
         e.preventDefault();
