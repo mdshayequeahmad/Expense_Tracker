@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { updateExpenses } from "../redux/expenseSlice";
 
 const ExpenseUpdate = () => {
     const [amount, setAmount] = useState("");
@@ -9,6 +10,7 @@ const ExpenseUpdate = () => {
     const [category, setCategory] = useState("");
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { id } = useParams();
     const expenseList = useSelector((state) => state.expenses.expenseItem);
 
@@ -26,6 +28,12 @@ const ExpenseUpdate = () => {
                     },
                 )
                 .then(() => {
+                    dispatch(updateExpenses({
+                        id: id,
+                        amount: amount,
+                        description: description,
+                        category: category,
+                    }))
                     console.log("Expense successfuly updated");
                 });
 

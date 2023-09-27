@@ -23,6 +23,16 @@ export const expensesSlice = createSlice({
                 (item) => item.id !== action.payload
             );
         },
+        updateExpenses: (state, action) => {
+            const item = state.expenseItem.flat().find(
+                (item) => item.id === action.payload.id
+            );
+            if (item) {
+                item.amount = action.payload.amount
+                item.description = action.payload.description
+                item.category = action.payload.category
+            }
+        },
     },
 });
 
