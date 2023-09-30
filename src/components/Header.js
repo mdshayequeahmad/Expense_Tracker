@@ -34,7 +34,7 @@ const Header = () => {
             expenses += Number(item.amount)
         ));
         setTotalExpenses(expenses);
-    }, [])
+    }, [expenseItem]);
 
     return (
         <div>

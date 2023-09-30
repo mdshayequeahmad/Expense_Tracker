@@ -36,7 +36,7 @@ const Expenses = () => {
         };
 
         getData();
-    }, []);
+    }, [expense]);
 
     const deleteHandler = async (id) => {
         try {

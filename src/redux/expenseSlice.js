@@ -16,6 +16,7 @@ export const expensesSlice = createSlice({
             state.userInfo = null;
         },
         addExpenses: (state, action) => {
+            state.expenseItem = [];
             state.expenseItem.push(action.payload);
         },
         deleteExpenses: (state, action) => {
