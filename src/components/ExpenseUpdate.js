@@ -49,8 +49,7 @@ const ExpenseUpdate = () => {
     };
 
     useEffect(() => {
-        const getExpense = expenseList.flat();
-        const expense = getExpense.find((item) => item.id === id);
+        const expense = expenseList.flat().find((item) => item.id === id);
 
         setAmount(expense.amount);
         setDescription(expense.description);
@@ -58,8 +57,8 @@ const ExpenseUpdate = () => {
     }, []);
 
     return (
-        <div className={`my-10 ${darkTheme && `w-full h-screen bg-black`}`}>
-            <h1 className="font-semibold text-center text-3xl mb-10">
+        <div className={`w-full h-screen ${darkTheme && `bg-black`}`}>
+            <h1 className={`font-semibold text-center text-3xl pt-14 mb-10 ${darkTheme && `text-white`}`}>
                 Update Expense
             </h1>
             <form onSubmit={submitHandler}>

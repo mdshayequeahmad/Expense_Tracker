@@ -6,7 +6,7 @@ const ExpenseForm = () => {
 
     const [amount, setAmount] = useState("");
     const [description, setDescription] = useState("");
-    const [category, setCategory] = useState("Food");
+    const [category, setCategory] = useState("");
 
     const darkTheme = useSelector((state) => state.expenses.darkTheme);
 
@@ -58,6 +58,7 @@ const ExpenseForm = () => {
                             required
                             onChange={(e) => setCategory(e.target.value)}
                         >
+                            <option value="">Choose Category</option>
                             <option value="Food">Food</option>
                             <option value="Fuel">Fuel</option>
                             <option value="Salary">Salary</option>
