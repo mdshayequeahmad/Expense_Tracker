@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     userInfo: null,
     expenseItem: [],
+    darkTheme: false,
 }
 
 export const expensesSlice = createSlice({
@@ -34,8 +35,15 @@ export const expensesSlice = createSlice({
                 item.category = action.payload.category
             }
         },
+        themeChanger: (state, action) => {
+            if (state.darkTheme === false) {
+                state.darkTheme = true;
+            } else {
+                state.darkTheme = false;
+            }
+        },
     },
 });
 
-export const { addUser, removeUser, addExpenses, deleteExpenses, updateExpenses } = expensesSlice.actions;
+export const { addUser, removeUser, addExpenses, deleteExpenses, updateExpenses, themeChanger } = expensesSlice.actions;
 export default expensesSlice.reducer;

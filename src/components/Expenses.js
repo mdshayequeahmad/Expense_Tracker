@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addExpenses, deleteExpenses } from "../redux/expenseSlice";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ const Expenses = () => {
     const [expense, setExpense] = useState([]);
 
     const dispatch = useDispatch();
+    const darkTheme = useSelector((state) => state.expenses.darkTheme);
 
     useEffect(() => {
         const getData = async () => {
@@ -52,7 +53,7 @@ const Expenses = () => {
 
     return (
         <div className="mt-10">
-            <h1 className="font-semibold text-3xl text-center mb-5">Expenses</h1>
+            <h1 className={`font-semibold text-3xl text-center mb-5 ${darkTheme && `text-white`}`}>Expenses</h1>
             {expense.map((item) => (
                 <div key={item.id}>
                     <div className="mx-40 px-4 bg-slate-200 rounded-md">

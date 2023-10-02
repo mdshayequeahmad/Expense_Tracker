@@ -13,6 +13,7 @@ const ExpenseUpdate = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const expenseList = useSelector((state) => state.expenses.expenseItem);
+    const darkTheme = useSelector((state) => state.expenses.darkTheme);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -57,14 +58,14 @@ const ExpenseUpdate = () => {
     }, []);
 
     return (
-        <div className="my-10">
+        <div className={`my-10 ${darkTheme && `w-full h-screen bg-black`}`}>
             <h1 className="font-semibold text-center text-3xl mb-10">
                 Update Expense
             </h1>
             <form onSubmit={submitHandler}>
                 <div className="flex justify-center items-center">
                     <div className="mr-10">
-                        <label className="text-2xl">Amount: </label>
+                        <label className={`text-2xl ${darkTheme && `text-white`}`}>Amount: </label>
                         <input
                             className="outline-none h-8 px-2 border rounded-sm border-slate-900 ml-5"
                             type="number"
@@ -74,7 +75,7 @@ const ExpenseUpdate = () => {
                         />
                     </div>
                     <div className="mr-10">
-                        <label className="text-2xl">Description :</label>
+                        <label className={`text-2xl ${darkTheme && `text-white`}`}>Description :</label>
                         <input
                             className="outline-none h-8 px-2 border rounded-sm border-slate-900 ml-5"
                             type="text"
@@ -84,7 +85,7 @@ const ExpenseUpdate = () => {
                         />
                     </div>
                     <div className="mr-10">
-                        <label className="text-2xl">Category :</label>
+                        <label className={`text-2xl ${darkTheme && `text-white`}`}>Category :</label>
                         <select
                             value={category}
                             className="h-8 ml-5 text-center"

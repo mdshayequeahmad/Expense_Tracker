@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const ExpenseForm = () => {
 
     const [amount, setAmount] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("Food");
+
+    const darkTheme = useSelector((state) => state.expenses.darkTheme);
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -28,7 +31,7 @@ const ExpenseForm = () => {
             <form onSubmit={submitHandler}>
                 <div className='flex justify-center items-center'>
                     <div className='mr-10'>
-                        <label className='text-2xl'>Amount: </label>
+                        <label className={`text-2xl ${darkTheme && `text-white`}`}>Amount: </label>
                         <input
                             className='outline-none h-8 px-2 border rounded-sm border-slate-900 ml-5'
                             type="number"
@@ -38,7 +41,7 @@ const ExpenseForm = () => {
                         />
                     </div>
                     <div className='mr-10'>
-                        <label className='text-2xl'>Description :</label>
+                        <label className={`text-2xl ${darkTheme && `text-white`}`}>Description :</label>
                         <input
                             className='outline-none h-8 px-2 border rounded-sm border-slate-900 ml-5'
                             type="text"
@@ -48,7 +51,7 @@ const ExpenseForm = () => {
                         />
                     </div>
                     <div className='mr-10'>
-                        <label className='text-2xl'>Category :</label>
+                        <label className={`text-2xl ${darkTheme && `text-white`}`}>Category :</label>
                         <select
                             value={category}
                             className='h-8 ml-5 text-center'
