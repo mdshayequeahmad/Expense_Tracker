@@ -9,11 +9,13 @@ const Expenses = () => {
 
     const dispatch = useDispatch();
     const darkTheme = useSelector((state) => state.expenses.darkTheme);
+    const user = useSelector((state) => state.expenses.userInfo);
+    const {_id} = user;
 
     useEffect(() => {
         const getData = async () => {
             try {
-                const result = await fetch("https://expense-tracker-2eef1-default-rtdb.firebaseio.com/expenses.json");
+                const result = await fetch(`https://expense-tracker-2eef1-default-rtdb.firebaseio.com/${_id}/expenses.json`);
                 const data = await result.json();
 
                 const newData = [];
@@ -41,7 +43,7 @@ const Expenses = () => {
 
     const deleteHandler = async (id) => {
         try {
-            await axios.delete(`https://expense-tracker-2eef1-default-rtdb.firebaseio.com/expenses/${id}.json`)
+            await axios.delete(`https://expense-tracker-2eef1-default-rtdb.firebaseio.com/${_id}/expenses/${id}.json`)
                 .then(() => {
                     dispatch(deleteExpenses(id))
                     console.log("Expense successfuly deleted");

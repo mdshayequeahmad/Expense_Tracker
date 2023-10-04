@@ -9,11 +9,13 @@ const ExpenseForm = () => {
     const [category, setCategory] = useState("");
 
     const darkTheme = useSelector((state) => state.expenses.darkTheme);
+    const user = useSelector((state) => state.expenses.userInfo);
+    const {_id} = user;
 
     const submitHandler = (e) => {
         e.preventDefault();
 
-        axios.post('https://expense-tracker-2eef1-default-rtdb.firebaseio.com/expenses.json', {
+        axios.post(`https://expense-tracker-2eef1-default-rtdb.firebaseio.com/${_id}/expenses.json`, {
             amount: amount,
             description: description,
             category: category

@@ -14,6 +14,8 @@ const ExpenseUpdate = () => {
     const { id } = useParams();
     const expenseList = useSelector((state) => state.expenses.expenseItem);
     const darkTheme = useSelector((state) => state.expenses.darkTheme);
+    const user = useSelector((state) => state.expenses.userInfo);
+    const {_id} = user;
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -21,7 +23,7 @@ const ExpenseUpdate = () => {
         try {
             await axios
                 .patch(
-                    `https://expense-tracker-2eef1-default-rtdb.firebaseio.com/expenses/${id}.json`,
+                    `https://expense-tracker-2eef1-default-rtdb.firebaseio.com/${_id}/expenses/${id}.json`,
                     {
                         amount: amount,
                         description: description,
