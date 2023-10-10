@@ -10,22 +10,26 @@ const ExpenseForm = () => {
 
     const darkTheme = useSelector((state) => state.expenses.darkTheme);
     const user = useSelector((state) => state.expenses.userInfo);
-    const {_id} = user;
+    const { _id } = user;
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
 
-        axios.post(`https://expense-tracker-2eef1-default-rtdb.firebaseio.com/${_id}/expenses.json`, {
-            amount: amount,
-            description: description,
-            category: category
-        })
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err))
+        try {
+            const res = await axios.post(`https://expense-tracker-2eef1-default-rtdb.firebaseio.com/${_id}/expenses.json`, {
+                amount: amount,
+                description: description,
+                category: category
+            });
+            console.log(res.data);
 
-        setAmount("");
-        setDescription("");
-        setCategory("");
+            setAmount("");
+            setDescription("");
+            setCategory("");
+
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
