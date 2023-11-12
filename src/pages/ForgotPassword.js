@@ -7,19 +7,18 @@ const ForgotPassword = () => {
 
     const [email, setEmail] = useState("");
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
 
-        sendPasswordResetEmail(auth, email)
-            .then(() => {
-                alert("Password reset email sent");
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
-            });
+        try {
+            await sendPasswordResetEmail(auth, email);
+            alert("Password reset email sent");
+        } catch (error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode);
+            console.log(errorMessage);
+        }
 
         setEmail("");
     };

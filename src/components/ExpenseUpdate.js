@@ -15,30 +15,26 @@ const ExpenseUpdate = () => {
     const expenseList = useSelector((state) => state.expenses.expenseItem);
     const darkTheme = useSelector((state) => state.expenses.darkTheme);
     const user = useSelector((state) => state.expenses.userInfo);
-    const {_id} = user;
+    const { _id } = user;
 
     const submitHandler = async (e) => {
         e.preventDefault();
 
         try {
-            await axios
-                .patch(
-                    `https://expense-tracker-2eef1-default-rtdb.firebaseio.com/${_id}/expenses/${id}.json`,
-                    {
-                        amount: amount,
-                        description: description,
-                        category: category,
-                    },
-                )
-                .then(() => {
-                    dispatch(updateExpenses({
-                        id: id,
-                        amount: amount,
-                        description: description,
-                        category: category,
-                    }))
-                    console.log("Expense successfuly updated");
-                });
+            await axios.patch(`https://expense-tracker-2eef1-default-rtdb.firebaseio.com/${_id}/expenses/${id}.json`,
+                {
+                    amount: amount,
+                    description: description,
+                    category: category,
+                },
+            );
+            dispatch(updateExpenses({
+                id: id,
+                amount: amount,
+                description: description,
+                category: category,
+            }))
+            console.log("Expense successfuly updated");
 
             setAmount("");
             setDescription("");
@@ -56,7 +52,7 @@ const ExpenseUpdate = () => {
         setAmount(expense.amount);
         setDescription(expense.description);
         setCategory(expense.category);
-    }, []);
+    }, [expenseList, id]);
 
     return (
         <div className={`w-full h-screen ${darkTheme && `bg-black`}`}>

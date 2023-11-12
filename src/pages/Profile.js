@@ -4,13 +4,14 @@ import ContactDetails from '../components/ContactDetails';
 
 const Profile = () => {
 
-    const auth = getAuth();
-
-    const verifyEmailHandler = () => {
-        sendEmailVerification(auth.currentUser)
-            .then(() => {
-                console.log("Email verification sent!");
-            });
+    const verifyEmailHandler = async () => {
+        try {
+            const auth = getAuth();
+            await sendEmailVerification(auth.currentUser);
+            console.log("Email verification sent!");
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (

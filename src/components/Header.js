@@ -20,13 +20,14 @@ const Header = () => {
         navigate("/profile");
     };
 
-    const logOutHandler = () => {
-        signOut(auth).then(() => {
+    const logOutHandler = async () => {
+        try {
+            await signOut(auth);
             dispatch(removeUser());
             console.log("User logout");
-        }).catch((error) => {
+        } catch (error) {
             console.log(error);
-        });
+        }
     };
 
     const themeChangeHandler = () => {

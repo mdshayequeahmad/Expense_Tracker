@@ -11,27 +11,25 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log("User has successfully signed in.");
-        const user = userCredential.user;
-        dispatch(addUser({
-          _id: user.uid,
-          email: user.email,
-        })
-        );
-        navigate("/");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        console.log(errorCode);
-        const errorMessage = error.message;
-        console.log(errorMessage);
-      });
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log("User has successfully signed in.");
+      const user = userCredential.user;
+      dispatch(addUser({
+        _id: user.uid,
+        email: user.email,
+      }));
+      navigate("/");
+    } catch (error) {
+      const errorCode = error.code;
+      console.log(errorCode);
+      const errorMessage = error.message;
+      console.log(errorMessage);
+    }
 
     setEmail("");
     setPassword("");

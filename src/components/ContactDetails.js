@@ -22,31 +22,30 @@ const ContactDetails = () => {
     useEffect(() => {
         setFullname(displayName);
         setUrl(photoURL);
-    }, []);
+    }, [displayName, photoURL]);
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
 
-        updateProfile(auth.currentUser, {
-            displayName: fullname,
-            photoURL: url,
-        })
-            .then(() => {
-                dispatch(
-                    addUser({
-                        ...userInfo,
-                        ...{
-                            displayName: fullname,
-                            photoURL: url,
-                        },
-                    }),
-                );
-                navigate(-1);
-                console.log("Profile updated!");
-            })
-            .catch((error) => {
-                console.log(error);
+        try {
+            await updateProfile(auth.currentUser, {
+                displayName: fullname,
+                photoURL: url,
             });
+            dispatch(
+                addUser({
+                    ...userInfo,
+                    ...{
+                        displayName: fullname,
+                        photoURL: url,
+                    },
+                }),
+            );
+            navigate(-1);
+            console.log("Profile updated!");
+        } catch (error) {
+            console.log(error);
+        }
 
         setFullname("");
         setUrl("");
