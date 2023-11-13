@@ -13,33 +13,40 @@ const Expenses = () => {
     const { _id } = user;
 
     useEffect(() => {
-        const getData = async () => {
-            try {
-                const result = await fetch(`https://expense-tracker-2eef1-default-rtdb.firebaseio.com/${_id}/expenses.json`);
-                const data = await result.json();
+        const interval = setInterval(() => {
+            const getData = async () => {
+                try {
+                    const result = await fetch(`https://expense-tracker-2eef1-default-rtdb.firebaseio.com/${_id}/expenses.json`);
+                    const data = await result.json();
 
-                const newData = [];
+                    const newData = [];
 
-                for (const key in data) {
-                    newData.push({
-                        id: key,
-                        amount: data[key].amount,
-                        description: data[key].description,
-                        category: data[key].category
-                    })
+                    for (const key in data) {
+                        newData.push({
+                            id: key,
+                            amount: data[key].amount,
+                            description: data[key].description,
+                            category: data[key].category
+                        })
+                    }
+
+                    setExpense(newData);
+
+                    dispatch(addExpenses(newData));
+
+                } catch (error) {
+                    console.log(error);
                 }
+            };
 
-                setExpense(newData);
+            getData();
+        }, 2000);
 
-                dispatch(addExpenses(newData));
-
-            } catch (error) {
-                console.log(error);
-            }
+        return () => {
+            clearInterval(interval);
         };
 
-        getData();
-    }, [expense, _id, dispatch]);
+    }, [_id, dispatch]);
 
     const deleteHandler = async (id) => {
         try {
